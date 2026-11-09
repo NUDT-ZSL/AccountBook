@@ -1,0 +1,24 @@
+# Android signing credentials and generated files
+/android/keystore/
+/android/build/
+/android/assets/
+*.apk
+*.keystore
+*.jks
+*.p12
+keystore.properties
+local.properties
+
+# Local ledger exports
+sanyu-backup-*.json
+sanyu-transactions-*.csv
+sanyu-balances-*.csv
+
+# Local tools and historical previews
+node_modules/
+.idea/
+.vscode/
+Thumbs.db
+.DS_Store
+/preview-*.png
+/记账本.html

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#f4f1ea">
+<meta name="description" content="记账本：记录支付宝、工商银行、微信余额与日常收支的本地账本。">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="记账本">
+<meta name="format-detection" content="telephone=no">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTYiIGZpbGw9IiMxNzNmMmQiLz48cGF0aCBkPSJNMjAgMjJoMjRNMTYgMzJoMzJNMjAgNDJoMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2Y2ZjBkZiIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=">
+<title>记账本 · 手机余额账本</title>
+<style>/*__CSS__*/</style>
+</head>
+<body>
+<svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3.5 10.6 12 3.5l8.5 7.1V20a1 1 0 0 1-1 1h-5v-6.5h-5V21h-5a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M8.5 6h12M8.5 12h12M8.5 18h12"/><circle cx="3.8" cy="6" r="1.1"/><circle cx="3.8" cy="12" r="1.1"/><circle cx="3.8" cy="18" r="1.1"/></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M4 6.5h14.5A1.5 1.5 0 0 1 20 8v11a1.5 1.5 0 0 1-1.5 1.5h-14A1.5 1.5 0 0 1 3 19V6a2 2 0 0 1 2-2h12"/><path d="M16 12.5h4v4h-4a2 2 0 0 1 0-4Z"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V13M10 20V5M16 20v-9M22 20H2"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m0 0 4.3-4.3M12 15l-4.3-4.3M4 17.5V20h16v-2.5"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4m0 0 4.3 4.3M12 4 7.7 8.3M4 17.5V20h16v-2.5"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="m14.5 5-7 7 7 7"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="m4 20 4.2-1 10.6-10.6a2 2 0 0 0 0-2.8l-.4-.4a2 2 0 0 0-2.8 0L5 15.8 4 20Z"/><path d="m13.8 7.2 3 3"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4.5h6V7M6.5 7l.8 13h9.4l.8-13M10 11v5M14 11v5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.4c0 4.5 3 7.9 7.5 9.6 4.5-1.7 7.5-5.1 7.5-9.6V6z"/><path d="m8.7 12 2.2 2.2 4.4-4.4"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M7.5 3v4M16.5 3v4M3.5 9.5h17"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 6.5"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.5 21 20H3z"/><path d="M12 9v4.7M12 17.2v.2"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 2.8c.7 5.2 3.4 7.9 8.6 8.6-5.2.7-7.9 3.4-8.6 8.6-.7-5.2-3.4-7.9-8.6-8.6 5.2-.7 7.9-3.4 8.6-8.6Z"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></symbol>
+  <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5.5" rx="7.5" ry="3"/><path d="M4.5 5.5v6c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-6M4.5 11.5v6c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-6"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.2V12l3.3 2"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h13m0 0-4.8-4.8M18 12l-4.8 4.8"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 10.8V17M12 7.3v.2"/></symbol>
+</svg>
+
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand" aria-label="记账本，手机余额账本">
+      <div class="brand-mark" aria-hidden="true">记</div>
+      <div class="brand-text">
+        <div class="brand-name">记账本</div>
+        <div class="brand-sub">手机余额 · 收支账本</div>
+      </div>
+    </div>
+    <button class="data-button" id="dataButton" type="button" data-action="open-data" aria-label="打开数据与备份">
+      <span class="status-dot" id="headerDot" aria-hidden="true"></span>
+      <span>数据</span>
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-database"/></svg>
+    </button>
+  </header>
+
+  <main id="main">
+    <!-- 总览 -->
+    <section class="view is-active" id="view-home" aria-labelledby="homeTitle">
+      <h1 class="sr-only" id="homeTitle">总览</h1>
+      <div class="dayline">
+        <div class="dayline-left">
+          <span id="todayText">今天</span>
+          <span class="dot-sep" aria-hidden="true">·</span>
+          <span class="dayline-hint">把每一笔，放回原处</span>
+        </div>
+        <span class="save-badge" id="saveBadge"><i class="dot" aria-hidden="true"></i><span>本机保存</span></span>
+      </div>
+
+      <div class="hero">
+        <div class="hero-orb hero-orb-a" aria-hidden="true"></div>
+        <div class="hero-orb hero-orb-b" aria-hidden="true"></div>
+        <div class="hero-head">
+          <span class="hero-eyebrow">总余额</span>
+          <span class="hero-date" id="heroDate">尚未记录</span>
+        </div>
+        <div class="hero-balance" id="heroTotal"><span class="currency">¥</span><span>—</span></div>
+        <div class="hero-delta" id="heroDelta">先记下今天的账户余额吧</div>
+        <div class="hero-accounts" id="heroAccounts"></div>
+        <div class="hero-actions">
+          <button class="btn btn-cream" type="button" data-action="open-balance">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wallet"/></svg>
+            更新余额
+          </button>
+          <button class="btn btn-glass" type="button" data-action="open-tx">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-plus"/></svg>
+            记一笔
+          </button>
+        </div>
+      </div>
+
+      <div class="storage-warning" id="storageWarning" hidden>
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-alert"/></svg>
+        <div>
+          <strong>浏览器没有开启本地存储</strong>
+          <p>这次填写的内容关闭页面后会丢失，请立即导出备份。</p>
+        </div>
+        <button type="button" class="mini-action" data-action="open-data">去备份</button>
+      </div>
+
+      <div class="nudge" id="backupNudge" hidden>
+        <div class="nudge-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg></div>
+        <p id="nudgeText">有几天没备份了，导出一份放到微信收藏会更安心。</p>
+        <button type="button" class="nudge-action" data-action="open-data">备份</button>
+      </div>
+
+      <div class="onboarding" id="onboarding" hidden>
+        <div class="onboarding-top">
+          <span class="onboarding-kicker"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-spark"/></svg>开始使用</span>
+          <span class="onboarding-step">第一步</span>
+        </div>
+        <h2>先花一分钟，给今天留个底。</h2>
+        <p>支付宝、工商银行、微信各填一次余额；以后每一笔收支随手记下，月底就能看见钱去了哪里。</p>
+        <div class="onboarding-actions">
+          <button type="button" class="btn btn-primary" data-action="open-balance">记录第一次余额</button>
+          <button type="button" class="btn btn-quiet" data-action="open-tx">直接记一笔</button>
+        </div>
+      </div>
+
+      <div class="summary-grid" aria-label="本月收支概览">
+        <div class="summary-card">
+          <span class="summary-label"><i class="legend-dot income" aria-hidden="true"></i>本月收入</span>
+          <strong class="summary-value income" id="statIncome">¥0.00</strong>
+          <span class="summary-note" id="statIncomeCount">0 笔</span>
+        </div>
+        <div class="summary-card">
+          <span class="summary-label"><i class="legend-dot expense" aria-hidden="true"></i>本月支出</span>
+          <strong class="summary-value expense" id="statExpense">¥0.00</strong>
+          <span class="summary-note" id="statExpenseCount">0 笔</span>
+        </div>
+        <div class="summary-card">
+          <span class="summary-label"><i class="legend-dot net" aria-hidden="true"></i>本月结余</span>
+          <strong class="summary-value" id="statNet">¥0.00</strong>
+          <span class="summary-note" id="statNetNote">收入 − 支出</span>
+        </div>
+      </div>
+
+      <article class="card chart-card">
+        <div class="section-head">
+          <div>
+            <h2>月度收支</h2>
+            <p>近 6 个月 · 梯形图</p>
+          </div>
+          <button class="link-button" type="button" data-action="switch-view" data-view="report">
+            完整报表
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-right"/></svg>
+          </button>
+        </div>
+        <div class="legend-row">
+          <span class="legend-item"><i class="legend-swatch income" aria-hidden="true"></i>收入</span>
+          <span class="legend-item"><i class="legend-swatch expense" aria-hidden="true"></i>支出</span>
+        </div>
+        <div class="chart-wrap" id="homeChart"></div>
+      </article>
+
+      <article class="card">
+        <div class="section-head">
+          <div>
+            <h2>最近流水</h2>
+            <p id="recentSub">每一笔都算数</p>
+          </div>
+          <button class="link-button" type="button" data-action="go-all-ledger">
+            全部
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-right"/></svg>
+          </button>
+        </div>
+        <div id="recentList" class="tx-list"></div>
+      </article>
+
+      <p class="local-note">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg>
+        所有记录保存在你这台设备的浏览器里，不会上传到任何服务器。<span id="syncNote">记流水时，会自动从对应账户里扣款或入账。</span>
+      </p>
+    </section>
+
+    <!-- 流水 -->
+    <section class="view" id="view-ledger" aria-labelledby="ledgerTitle">
+      <div class="page-head">
+        <div>
+          <span class="page-kicker">LEDGER</span>
+          <h1 id="ledgerTitle">流水明细</h1>
+          <p>一笔一笔，构成生活的形状。</p>
+        </div>
+        <button class="btn btn-primary btn-sm" type="button" data-action="open-tx">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-plus"/></svg>
+          记一笔
+        </button>
+      </div>
+
+      <div class="filter-panel">
+        <div class="filter-top">
+          <div class="month-stepper">
+            <button class="step-button" type="button" data-action="ledger-prev" aria-label="上个月">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-left"/></svg>
+            </button>
+            <span class="month-text" id="ledgerMonthLabel">本月</span>
+            <button class="step-button" type="button" data-action="ledger-next" aria-label="下个月">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-right"/></svg>
+            </button>
+          </div>
+          <button class="ghost-pill" type="button" id="ledgerAllButton" data-action="ledger-all">全部时间</button>
+        </div>
+        <div class="segmented" id="ledgerTypeFilter" role="group" aria-label="流水类型">
+          <button type="button" data-action="filter-type" data-type="all" class="is-active">全部</button>
+          <button type="button" data-action="filter-type" data-type="income">收入</button>
+          <button type="button" data-action="filter-type" data-type="expense">支出</button>
+        </div>
+        <div class="filter-summary" id="ledgerSummary">收入 ¥0.00 · 支出 ¥0.00</div>
+      </div>
+
+      <div id="ledgerList" class="ledger-list"></div>
+    </section>
+
+    <!-- 余额 -->
+    <section class="view" id="view-balance" aria-labelledby="balanceTitle">
+      <div class="page-head">
+        <div>
+          <span class="page-kicker">BALANCE</span>
+          <h1 id="balanceTitle">余额快照</h1>
+          <p>记录和管理各账户的余额。</p>
+        </div>
+        <div class="balance-page-actions">
+          <button class="btn btn-primary btn-sm" type="button" data-action="open-balance">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-plus"/></svg>
+            记余额
+          </button>
+          <button class="btn btn-secondary btn-sm" type="button" data-action="manage-accounts">账户管理</button>
+        </div>
+      </div>
+
+      <article class="card balance-overview-card">
+        <div id="balanceOverview"></div>
+      </article>
+
+      <article class="card">
+        <div class="section-head">
+          <div>
+            <h2>余额走势</h2>
+            <p id="balanceChartSub">每次记录后的余额变化</p>
+          </div>
+          <span class="soft-badge" id="balanceChartBadge">最近 12 次</span>
+        </div>
+        <div class="chip-row" id="balanceSeries" role="group" aria-label="选择余额账户"></div>
+        <div class="chart-wrap chart-wrap-sm" id="balanceChart"></div>
+      </article>
+
+      <article class="card">
+        <div class="section-head">
+          <div>
+            <h2>历史快照</h2>
+            <p id="snapshotCount">点击一条记录可以修改</p>
+          </div>
+        </div>
+        <div id="snapshotList" class="snapshot-list"></div>
+      </article>
+    </section>
+
+    <!-- 报表 -->
+    <section class="view" id="view-report" aria-labelledby="reportTitle">
+      <div class="page-head">
+        <div>
+          <span class="page-kicker">REPORT</span>
+          <h1 id="reportTitle">收支报表</h1>
+          <p>看清来路，也看清去处。</p>
+        </div>
+        <button class="btn btn-secondary btn-sm" type="button" data-action="open-data">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-download"/></svg>
+          导出
+        </button>
+      </div>
+
+      <div class="report-monthbar">
+        <div class="month-stepper month-stepper-lg">
+          <button class="step-button" type="button" data-action="report-prev" aria-label="上个月">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-left"/></svg>
+          </button>
+          <div class="month-text-wrap">
+            <span class="month-text" id="reportMonthLabel">本月</span>
+            <span class="month-sub" id="reportMonthSub">MONTH</span>
+          </div>
+          <button class="step-button" type="button" data-action="report-next" aria-label="下个月">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-right"/></svg>
+          </button>
+        </div>
+        <button class="ghost-pill" type="button" id="reportCurrentButton" data-action="report-current">回到本月</button>
+      </div>
+
+      <div class="summary-grid report-summary" aria-label="当月收支概览">
+        <div class="summary-card">
+          <span class="summary-label"><i class="legend-dot income" aria-hidden="true"></i>收入</span>
+          <strong class="summary-value income" id="reportIncome">¥0.00</strong>
+          <span class="summary-note" id="reportIncomeCount">0 笔</span>
+        </div>
+        <div class="summary-card">
+          <span class="summary-label"><i class="legend-dot expense" aria-hidden="true"></i>支出</span>
+          <strong class="summary-value expense" id="reportExpense">¥0.00</strong>
+          <span class="summary-note" id="reportExpenseCount">0 笔</span>
+        </div>
+        <div class="summary-card">
+          <span class="summary-label"><i class="legend-dot net" aria-hidden="true"></i>结余</span>
+          <strong class="summary-value" id="reportNet">¥0.00</strong>
+          <span class="summary-note" id="reportSaveRate">—</span>
+        </div>
+      </div>
+
+      <article class="card">
+        <div class="section-head">
+          <div>
+            <h2>钱花在哪了</h2>
+            <p>当月支出 · 点色块查看分类</p>
+          </div>
+          <span class="soft-badge" id="expenseCountBadge">0 笔</span>
+        </div>
+        <div id="expenseDonut"></div>
+      </article>
+
+      <article class="card">
+        <div class="section-head">
+          <div>
+            <h2>收入来源</h2>
+            <p>当月进账构成</p>
+          </div>
+        </div>
+        <div id="incomeBreakdown" class="breakdown-list"></div>
+      </article>
+
+      <article class="card chart-card">
+        <div class="section-head chart-head">
+          <div>
+            <h2>月度收支</h2>
+            <p>收入与支出的梯形对比</p>
+          </div>
+          <div class="tiny-toggle" id="reportRangeToggle" role="group" aria-label="图表范围">
+            <button type="button" data-action="report-range" data-range="6">6 月</button>
+            <button type="button" data-action="report-range" data-range="12" class="is-active">12 月</button>
+          </div>
+        </div>
+        <div class="legend-row">
+          <span class="legend-item"><i class="legend-swatch income" aria-hidden="true"></i>收入</span>
+          <span class="legend-item"><i class="legend-swatch expense" aria-hidden="true"></i>支出</span>
+        </div>
+        <div class="chart-wrap" id="reportChart"></div>
+      </article>
+
+      <article class="export-callout">
+        <div class="export-callout-icon">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg>
+        </div>
+        <div>
+          <h2>别让记录只留在浏览器里</h2>
+          <p>导出一份 JSON 备份，发到微信收藏或网盘。换手机、换页面时都能导回来。</p>
+        </div>
+        <button type="button" class="btn btn-cream btn-sm" data-action="open-data">导出备份</button>
+      </article>
+
+      <p class="local-note">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-info"/></svg>
+        清理浏览器数据或使用无痕模式可能清空记录，请定期备份。
+      </p>
+    </section>
+  </main>
+
+  <nav class="tabbar" aria-label="主导航">
+    <button type="button" class="tab is-active" data-action="switch-view" data-view="home" aria-current="page">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-home"/></svg>
+      <span>总览</span>
+    </button>
+    <button type="button" class="tab" data-action="switch-view" data-view="ledger">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-list"/></svg>
+      <span>明细</span>
+    </button>
+    <button type="button" class="nav-add" id="navAdd" data-action="open-tx" aria-label="记一笔">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-plus"/></svg>
+    </button>
+    <button type="button" class="tab" data-action="switch-view" data-view="balance">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wallet"/></svg>
+      <span>余额</span>
+    </button>
+    <button type="button" class="tab" data-action="switch-view" data-view="report">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg>
+      <span>报表</span>
+    </button>
+  </nav>
+</div>
+
+<div class="backdrop" id="sheetBackdrop" hidden>
+  <section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" tabindex="-1">
+    <div class="sheet-grip" aria-hidden="true"></div>
+    <header class="sheet-head">
+      <div class="sheet-title-group">
+        <span class="sheet-kicker" id="sheetKicker"></span>
+        <h2 id="sheetTitle">标题</h2>
+      </div>
+      <button class="icon-button" type="button" data-action="close-sheet" aria-label="关闭">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-close"/></svg>
+      </button>
+    </header>
+    <div class="sheet-body" id="sheetBody"></div>
+    <footer class="sheet-foot" id="sheetFoot"></footer>
+  </section>
+</div>
+
+<div class="backdrop dialog-backdrop" id="dialogBackdrop" hidden>
+  <section class="dialog" id="dialog" role="alertdialog" aria-modal="true" aria-labelledby="dialogTitle" aria-describedby="dialogMessage" tabindex="-1">
+    <div class="dialog-icon" id="dialogIcon"></div>
+    <h2 id="dialogTitle">确认</h2>
+    <p id="dialogMessage"></p>
+    <div class="dialog-actions" id="dialogActions"></div>
+  </section>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <span id="toastMessage"></span>
+  <button type="button" id="toastAction" hidden></button>
+</div>
+
+<input type="file" id="importInput" accept=".json,application/json" hidden>
+
+<script>/*__JS__*/</script>
+</body>
+</html>
